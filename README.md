@@ -1,65 +1,25 @@
-# registercompletionitemprovider-autoclosingbrackets-example README
+# registerCompletionItemProvider-autoClosingBrackets-example README
 
-This is the README for your extension "registercompletionitemprovider-autoclosingbrackets-example". After writing up a brief description, we recommend including the following sections.
+This repo is just for reproducing the vscode issue [111764](https://github.com/microsoft/vscode/issues/111764).
 
-## Features
+## Steps to reproduce
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+1. Open the repo in vscode
+2. `npm install`
+3. Run the Debugger command "Run Extension"
+4. (optional) configure your workspace / editor with `"editor.autoClosingBrackets": "always"` if not set to default or set to something different
+5. Open a workspace containing a AsciiDoc-File with content like the following:
+  ```adoc
+  :appdir: src/app
 
-For example if there is an image subfolder under your extension project workspace:
+  include
+  ```
+5. Start the autocompletion by typing `::` after the `include` (`include::`)
+6. The autocompletion should open. Choose the `{appdir}` option from the list
 
-\!\[feature X\]\(images/feature-x.png\)
+**Result**: The `"editor.autoClosingBrackets": "always"` setting will now fire and add an additional closing curly bracket after the auto-completed content (`}`).
+The cursor is place before the added bracket. So the result will look like this (with `|` representing the cursor):
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
-
-## Requirements
-
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
-
-## Extension Settings
-
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
------------------------------------------------------------------------------------------------------------
-
-## Working with Markdown
-
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
-
-### For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+```adoc
+include::{appdir}|}
+```
