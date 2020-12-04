@@ -10,7 +10,7 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:registercompletionitemprovider-autoclosingbrackets-example.helloWorld"
+		"*"
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
